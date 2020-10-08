@@ -1,0 +1,95 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn import preprocessing
+import sklearn
+
+"""
+MLF_GP1_CreditScore contains 1700 observations of 26 financial and accounting metrics changes 
+for a set of firms in several different industries.
+The Class label is the Moody's credit rating assigned to the firm in the following quarter.  
+Certain ratings are considered "Investment Grade" (=1), other ratings are not (=0) and consequently 
+may not be held in certain institutional portfolios (pension plans, etc.)
+This is a classification problem; using the features, X, and the machine learning techniques 
+from this class, classify the Moody's score (multiclass classification) and the Investment Grade 
+(binary classification). Not both at the same time!  Two models - one multiclass, one binary class.
+
+
+
+"""
+
+Credit_Score=pd.read_csv("MLF_GP1_CreditScore.csv")
+
+print(Credit_Score.head())
+
+"""
+see here for exploratory
+https://github.com/yohanesusanto/IE517_finalproject/blob/master/Project1.ipynb
+"""
+
+
+
+
+features_Credit_Score = Credit_Score.iloc[:,0:26]
+
+target_Investment_Grade = Credit_Score.iloc[:,26]
+
+target_Moody_Score = Credit_Score.iloc[:,27]
+
+
+
+
+
+# binary classification for Investment Grade
+
+X_train, X_test, y_train, y_test = train_test_split(features_Credit_Score, target_Investment_Grade,test_size=0.2, random_state=42)
+
+scaler = preprocessing.StandardScaler().fit(X_train)
+X_train = scaler.transform(X_train)
+X_test = scaler.transform(X_test)
+
+
+#PCA 
+from sklearn.decomposition import PCA
+
+# explained variance plot befor PCA
+cov_matrix=np.cov(X_train.T)
+eigenvalues,eigenvectors=np.linalg.eig(cov_matrix)
+
+#print(eigenvalues)
+sorted(eigenvalues,reverse=True)
+
+tot = sum(eigenvalues)
+
+part=0
+dimension=0
+while part/tot<0.95:
+    part=part+eigenvalues[dimension]
+    dimension=dimension+1
+
+percentage=part/tot
+print(percentage)
+print("we need",dimension,"components")
+
+var_exp = [(i / tot) for i in sorted(eigenvalues, reverse=True)]
+cum_var_exp = np.cumsum(var_exp)
+
+plt.figure(figsize=(10,5))
+plt.bar(range(1, 27), var_exp, alpha=0.5, align='center',label='individual explained variance')
+plt.step(range(1, 27), cum_var_exp, where='mid',label='cumulative explained variance')
+plt.ylabel('Explained variance ratio')
+plt.xlabel('Principal component index')
+plt.legend(loc='best')
+plt.tight_layout()
+plt.show()
+
+#PCA transformation
+pca=PCA(n_components=16)
+
+X_train=pca.fit_transform(X_train)
+X_test=pca.transform(X_test)
+
+# we only take 16 components for training
+#X_train, X_test is already transformed
