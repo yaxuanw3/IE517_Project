@@ -172,7 +172,7 @@ print("Random Forest")
 from sklearn.ensemble import RandomForestClassifier
 
 forest=RandomForestClassifier(n_jobs=-1)
-parameters={"criterion":["gini","entropy"],"n_estimators":[10,25,50,100,250,500,750,1000]}
+parameters={"criterion":["gini","entropy"],"n_estimators":[10,25,50,100,250,500,750,1000],"max_depth":[2,3,4,5,6,7,8,9,10]}
 
 forest_grid=GridSearchCV(forest,parameters,cv=10)
 
