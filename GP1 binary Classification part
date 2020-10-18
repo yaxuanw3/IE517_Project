@@ -18,8 +18,6 @@ This is a classification problem; using the features, X, and the machine learnin
 from this class, classify the Moody's score (multiclass classification) and the Investment Grade 
 (binary classification). Not both at the same time!  Two models - one multiclass, one binary class.
 
-
-
 """
 
 Credit_Score=pd.read_csv("MLF_GP1_CreditScore.csv")
@@ -28,10 +26,30 @@ print(Credit_Score.head())
 
 print(Credit_Score.describe())
 
+
 """
 see here for exploratory
 https://github.com/yohanesusanto/IE517_finalproject/blob/master/Project1.ipynb
 """
+
+# just add the exploratory of target
+
+false_number=0
+true_number=0
+for value in  Credit_Score.iloc[:,26]:
+    if value==0:
+        
+        false_number=false_number+1
+    else:
+        
+        true_number=true_number+1
+
+
+plt.bar(["Worth Investment","Not Worth Investment"],height=[true_number,false_number],width=0.4,edgecolor="black")
+plt.xlabel("Whether it is worth investment")
+plt.ylabel("Number")
+plt.show()
+print("\n")
 
 
 features_Credit_Score = Credit_Score.iloc[:,0:26]
