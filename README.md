@@ -13,6 +13,6 @@ Zicheng Wei: multi class part; EDA on the Moody’s ratings and its analysis; pr
 
 #### Project 2 written by Yohanes Susanto and Yaxuan Wang:
 
-Yohanes Susanto: all the introduction and EDA; Linear Regression; the ensembling learning (Random Forest model)
+Yohanes Susanto: all the introduction and EDA; Linear Regression; the ensembling learning on Random Forest in-sample accuracy and importance features
 
-Yaxuan Wang: support vector machine; randome forest regression; ridge regression; hyperparameter tuning; conclusion
+Yaxuan Wang: fitted model on support vector machine, randome forest regression, and ridge regression; hyperparameter tuning on those models; conclusion
