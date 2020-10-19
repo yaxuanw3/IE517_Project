@@ -1,4 +1,4 @@
-# IE517_Project
+# IE517 Final Project
 Implementation of Machine Learning Model to Credit Scores and Economic Cycle Datasets
 
 Made by Yi Zhou, Zicheng Wei, Yohanes Susanto, and Yaxuan Wang
